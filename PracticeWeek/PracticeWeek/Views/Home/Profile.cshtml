@@ -1,0 +1,32 @@
+﻿@using PracticeWeek.Models;
+@model User
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create Topic</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <p>Number of Topics: @Model.Topics.Count</p>
+    <p>Number of Posts: @Model.Posts.Count</p>
+    <img src="@Model.URL" alt="Profile Picture" />
+
+    <form action="/profile/@Model.ID" method="post">
+        <label for="URL">URL for your profile picture: </label>
+        <input type="url" name="URL" value="@Model.URL" /><br />
+        <label for="Username">Username: </label>
+        <input type="text" name="Username" value="@Model.Username" /><br />
+        <label for="DisplayName">Display Name:</label>
+        <input type="text" name="DisplayName" value="@Model.DisplayName" /><br />
+        <button asp-controller="Home" asp-action="Profile" type="submit">Save Changes</button>
+    </form>
+    <a href="/home/@Model.ID">Cancel</a>
+</body>
+</html>

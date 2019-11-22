@@ -1,0 +1,27 @@
+﻿@model string
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <link href="~/StyleSheet.css" rel="stylesheet" />
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <h1>Welcome on the Page!</h1>
+        <form action="login" method="post" id="login">
+            <label for="Username">Username</label>
+            <input type="text" name="Username" value="" required /><br />
+
+        </form>
+        @if (Model is null)
+        {
+            <h3></h3>
+        }
+        else
+        {
+            <h5>@Model</h5>
+        }
+        <button form="login" class="btn btn-success" asp-controller="Home" asp-action="Login">Log in</button>
+        <a class="btn btn-primary" role="button" href="/createaccount">Create Account</a>
+    </body>
+</html>

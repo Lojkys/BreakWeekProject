@@ -1,0 +1,83 @@
+﻿@using PracticeWeek.Models.ViewModels;
+@model UserTopicPosts
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>View Topic</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+ 
+        .content {
+            width: 400px;
+            height: 200px;          
+        }
+
+        table, tbody {
+            border: 1px solid black;
+            display: flex;
+            flex-direction:column;
+             border-collapse: collapse;
+             border-spacing: 0;
+             width: 800px;
+        }
+
+        .right {
+            border-left: 1px solid black;   
+            margin: 0;
+            padding-left: 10px;
+        }
+        .left {
+            width: 130px;
+        }
+
+        tr {
+            border-bottom: 1px solid black;
+        }
+
+        img{
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h4>Username: @Model.User.Username</h4>
+
+    <a href="/home/@Model.User.ID">Home</a>
+
+    <h2>Topic name: @Model.Topic.Name</h2>
+    <small>Topic created by: @Model.Topic.CreatedBy</small>
+
+    @if (Model.Topic.Posts.Count == 0)
+    {
+        <p>No posts yet. Be first to add a new one.</p>
+    }
+    else
+    {
+        <table>
+            <tbody>
+                @foreach (var post in Model.Topic.Posts)
+                {
+                    <tr>
+                        <td class="left"><h4>@post.PostedBy</h4><img src="@post.PicUrl" alt="Profile Picture" /><p><small>@post.CreatedTime</small></p></td>
+                        <td class="right"><h4>@post.Name</h4>@post.Content</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <form action="/topic/addpost/@Model.User.Username/@Model.Topic.ID" method="post" id="addpost">
+        <label for="name">Name</label><br />
+        <input style="width: 400px;" type="text" name="name" value="" required /><br />
+    </form>
+    <label for="content">Content</label><br />
+    <textarea class="content" name="content" id="content" form="addpost" placeholder="Enter text here..." required></textarea><br />
+    <button asp-controller="Topic" asp-action="AddPost" type="submit" form="addpost">Add Post</button>
+</body>
+</html>

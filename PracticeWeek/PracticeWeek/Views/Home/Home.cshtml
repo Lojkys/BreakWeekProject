@@ -1,0 +1,102 @@
+﻿@using PracticeWeek.Models.ViewModels;
+@model ModelViewHome
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        table, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 800px;
+        }
+
+        main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction:column;
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            background-color: aquamarine;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            padding: 8px;
+            background-color: lightblue;
+            margin: 15px;
+            border-radius: 7px;
+        }
+
+        img{
+            width: 40px;
+            height: 40px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nonedec {
+            text-decoration: none;
+            /*nefunguje do haje*/
+        }
+
+        li:hover {
+            background-color: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>@Model.User.Username</li>
+            <li><a class="nonedec" href="/profile/@Model.User.ID">My profile</a></li>
+            <li><a class="nonedec" href="/">Log out</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <img src="@Model.User.URL" alt="Profile pic" />
+        <h4>Display Name: @Model.User.DisplayName</h4>
+        <form style="text-align:left;" action="/search/@Model.User.ID" method="post">
+            <input type="search" name="search" placeholder="search..." />
+            <button asp-controller="Home" asp-action="search">Search</button>
+        </form>
+        <a href="/topic/createtopic/@Model.User.ID">Create Topic</a>
+        <table>
+            <thead>
+                <tr>
+                    <td>Topics</td>
+                    <td>Replies</td>
+                    <td>Time created</td>
+                    <td>Created by</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var topic in Model.Topics)
+                {
+                    <tr>
+                        <td><a href="/topic/viewtopic/@Model.User.Username/@topic.ID">@topic.Name</a></td>
+                        <td>@topic.Posts.Count</td>
+                        <td>@topic.CreatedDate</td>
+                        <td>@topic.CreatedBy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿@model string
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Create Account</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction:column;
+        }
+    </style>
+</head>
+<body>
+    <form action="createaccount" method="post">
+        <label for="Username">Username</label>
+        <input type="text" name="Username" value="" required /><br />
+        <label for="DisplayName">Display Name</label>
+        <input type="text" name="DisplayName" value="" required /><br />
+        <button asp-controller="Home" asp-action="CreateAccount" type="submit">Submit</button>
+    </form>
+    @if (Model is null)
+    {
+        <h3></h3>
+        <a href="/">Cancel</a>
+    }
+    else
+    {
+        <h3>@Model</h3>
+        <a class="btn btn-success" role="button" href="/">Log In</a>
+    }
+</body>
+</html>
